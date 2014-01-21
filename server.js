@@ -2,6 +2,7 @@
 //  OpenShift sample Node application
 var express = require('express');
 var fs      = require('fs');
+var route = require('./route/route');
 
 
 /**
@@ -21,6 +22,7 @@ var SampleApp = function() {
      *  Set up server IP address and port # using env variables/defaults.
      */
     self.setupVariables = function() {
+        //self.use(express.static('/public'));
         //  Set the environment variables we need.
         self.ipaddress = process.env.OPENSHIFT_NODEJS_IP;
         self.port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
@@ -94,16 +96,12 @@ var SampleApp = function() {
      */
     self.createRoutes = function() {
         self.routes = { };
-
-        self.routes['/asciimo'] = function(req, res) {
-            var link = "http://i.imgur.com/kmbjB.png";
-            res.send("<html><body><img src='" + link + "'></body></html>");
-        };
-
-        self.routes['/'] = function(req, res) {
-            res.setHeader('Content-Type', 'text/html');
-            res.send(self.cache_get('index.html') );
-        };
+        var appRoutes = route.allRoutes();
+        console.log(appRoutes);
+        for(var i = 0; i< appRoutes.length; i++ ){
+            console.log('Configuring', appRoutes[i].path, ' to', appRoutes[i].action);
+            self.routes[appRoutes[i].path] = appRoutes[i].action;
+        }
     };
 
 
@@ -113,8 +111,9 @@ var SampleApp = function() {
      */
     self.initializeServer = function() {
         self.createRoutes();
-        self.app = express.createServer();
+        self.app = express();
 
+        self.app.use(express.static(__dirname+'/public'));
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);

@@ -1,22 +1,23 @@
 {
-  "name": "OpenShift-Sample-App",
+  "name": "Buddy-Math-CBSE",
   "version": "1.0.0",
-  "description": "OpenShift Sample Application",
+  "description": "CBSE problems for young buddies",
   "keywords": [
-    "OpenShift",
-    "Node.js",
-    "application",
-    "openshift"
+    "Buddy",
+    "BuddyMath",
+    "Math",
+    "CBSE",
+    "7th"
   ],
   "author": {
-    "name": "OpenShift",
-    "email": "ramr@example.org",
-    "url": "http://www.openshift.com/"
+    "name": "Senthil",
+    "email": "sendmailtosenthil@gmail.com",
+    "url": "http://www.buddymath.com/"
   },
-  "homepage": "http://www.openshift.com/",
+  "homepage": "http://www.buddymath.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/openshift/origin-server"
+    "url": "https://github.com/sentkuri/buddymath"
   },
 
   "engines": {
