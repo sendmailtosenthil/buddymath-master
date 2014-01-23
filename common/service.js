@@ -7,7 +7,7 @@ var querystring = require('querystring');
 
 module.exports = {
 
-    performHttpRequest : function(endpoint, method, data, callback){
+    performHttpRequest : function(endpoint, method, data, success){
         var endpoint = 'http://'+config.restHost+':'+config.restPort+endpoint;
         var dataString = JSON.stringify(data);
         var headers = {};
@@ -23,8 +23,8 @@ module.exports = {
             };
         }
         var options = {
-            host: host,
-            port: port,
+            host: config.restHost,
+            port: config.restPort,
             path: endpoint,
             method: method,
             headers: headers
