@@ -5,6 +5,7 @@
 var db = require('./../memory/inMemory');
 var service = require('./../common/service');
 
+
 module.exports = {
 
     allRoutes: [{
@@ -13,9 +14,10 @@ module.exports = {
     }]
 }
 
+
 function retrieveQuestions(req, res){
-    service.performHttpRequest('/questions','GET',{},function(output){
-        res.json(output);
+    service.performHttpRequest('/problems','GET',{},function(output){
+        res.send(output);
     })
     //res.json();
 }
