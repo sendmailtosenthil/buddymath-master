@@ -52,7 +52,7 @@ module.exports = {
                 catch (e) {
                     console.log('Error occured parsing Json after calling rest api. ' +e);
                 }
-                success(responseObject,error);
+                success(error, responseObject);
 
             });
         });
