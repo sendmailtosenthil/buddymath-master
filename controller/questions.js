@@ -4,6 +4,7 @@
 
 var db = require('./../memory/inMemory');
 var service = require('./../common/service');
+var cache = require('./../memory/inMemory')
 
 
 module.exports = {
@@ -14,10 +15,25 @@ module.exports = {
     }]
 }
 
+function getProblem(id, callback){
+    cache.get(id, function(rest){
+        console.log('oooooi');
+        service.performHttpRequest('/problems','GET',{},function(err, data){
+                console.log('got my res', err, data);
+                // change on service code changes
+                rest(err, data);
+            })
+    }, function(error, data){
+          if (error) {
+              console.log("unable to retreive data"+error);
+          } else {
+              callback(data);
+          }
+    })
+}
 
 function retrieveQuestions(req, res){
-    service.performHttpRequest('/problems','GET',{},function(output){
-        res.send(output);
-    })
-    //res.json();
+    getProblem("1", function(data){
+        res.send(data);
+    });
 }
