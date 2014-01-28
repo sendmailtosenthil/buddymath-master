@@ -18,7 +18,7 @@ module.exports = {
 function getProblem(id, callback){
 
     if ((typeof(id) == 'undefined') || (id == 0)) {
-        service.performHttpRequest('/problems/poll/10','GET',{pageNo:1},function(err, data){
+        service.performHttpRequest('/problems/poll/10','GET',{pageNo:0},function(err, data){
             console.log('got my res', err, data);
             if (!err) {
                 // change on service code changes
@@ -47,7 +47,7 @@ function getProblem(id, callback){
 }
 
 function retrieveQuestions(req, res){
-    getProblem("1", function(data){
+    getProblem("0", function(data){
         res.send(data);
     });
 }
