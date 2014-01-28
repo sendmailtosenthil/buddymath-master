@@ -5,6 +5,7 @@ var config = require('./config');
 var http = require('http');
 var querystring = require('querystring');
 
+
 module.exports = {
 
     performHttpRequest : function(endpoint, method, data, success){
@@ -12,13 +13,15 @@ module.exports = {
         var dataString = JSON.stringify(data);
         var headers = {};
 
+        console.log('Content length', Buffer.byteLength(dataString));
+
         if (method == 'GET') {
             endpoint += '?' + querystring.stringify(data);
         }
         else {
             headers = {
                 'Content-Type': 'application/json',
-                'Content-Length': dataString.length
+                'Content-Length': Buffer.byteLength(dataString)
 
             };
         }
@@ -31,8 +34,8 @@ module.exports = {
         };
 
         var req = http.request(options, function(res) {
-            console.log('STATUS: ' + res.statusCode);
-            console.log('HEADERS: ' + JSON.stringify(res.headers));
+            console.log('STATUS: ', res.statusCode);
+            console.log('HEADERS: ', JSON.stringify(res.headers));
             res.setEncoding('utf-8');
 
             var responseString = '';

@@ -16,20 +16,34 @@ module.exports = {
 }
 
 function getProblem(id, callback){
-    cache.get(id, function(rest){
-        console.log('oooooi');
-        service.performHttpRequest('/problems','GET',{},function(err, data){
-                console.log('got my res', err, data);
+
+    if ((typeof(id) == 'undefined') || (id == 0)) {
+        service.performHttpRequest('/problems/poll/10','GET',{pageNo:1},function(err, data){
+            console.log('got my res', err, data);
+            if (!err) {
                 // change on service code changes
-                rest(err, data);
-            })
-    }, function(error, data){
-          if (error) {
-              console.log("unable to retreive data"+error);
-          } else {
-              callback(data);
-          }
-    })
+                cache.store(data);
+                callback(data);
+            }
+        })
+    } else {
+
+        cache.get(id, function(rest){
+            service.performHttpRequest('/problems/'+id,'GET',{pageNo:1},function(err, data){
+                    console.log('got my res', err, data);
+                    if (!err) {
+                        // change on service code changes
+                        rest(err, data);
+                    }
+                })
+        }, function(error, data){
+              if (error) {
+                  console.log("unable to retreive data"+error);
+              } else {
+                  callback(data);
+              }
+        })
+    }
 }
 
 function retrieveQuestions(req, res){
