@@ -23,7 +23,7 @@ function getProblem(id, callback){
             if (!err) {
                 // change on service code changes
                 cache.store(data);
-                callback(data);
+                callback(data[0]);
             }
         })
     } else {
