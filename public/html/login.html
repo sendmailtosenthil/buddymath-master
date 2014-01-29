@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BuddyMath Login</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/base.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/login.css">
+</head>
+<body>
+
+<div style="background: lightseagreen; text-align: center;">
+    <div style="box-sizing: border-box; display: inline-block; width: auto; max-width: 480px; background-color: #FFFFFF; border: 2px solid #0361A8; border-radius: 5px; box-shadow: 0px 0px 8px #0361A8; margin: 50px auto auto;">
+        <div style="background: #0361A8; border-radius: 5px 5px 0px 0px; padding: 15px;">
+            <span style="font-family: verdana,arial; color: #D4D4D4; font-size: 1.00em; font-weight:bold;">Sign in to continue MathOMenia</span>
+        </div>
+        <div style="background: lightseagreen; padding: 15px">
+            <form method="post" action="/user/authenticate" name="aform" target="_top">
+                <table class='center'>
+                    <tr><td>Username:</td><td><input type="text" name="username"></td></tr>
+                    <tr><td>Password:</td><td><input type="password" name="password"></td></tr>
+                    <tr><td>&nbsp;</td><td><input type="submit" value="Login"></td></tr>
+                    <tr><td colspan=2>&nbsp;</td></tr>
+                    <tr><td colspan=2>Not member yet? Click <a href="/user/signup">here</a> to sign up.</td></tr>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -27,7 +27,12 @@
 
   "dependencies": {
     "express": "~3.4.4",
-      "cache-manager": "latest"
+      "cache-manager": "latest",
+      "passport": "latest",
+      "passport-local": "latest",
+      "connect-flash": "latest",
+      "consolidate" :"latest",
+      "mustache" :"latest"
   },
   "devDependencies": {},
   "bundleDependencies": [],

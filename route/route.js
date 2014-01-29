@@ -1,6 +1,7 @@
 /**
  * Created by svaithiyanathan on 1/16/14.
  */
+/*
 var user = require('./../controller/user');
 var fs = require('fs');
 
@@ -29,4 +30,22 @@ module.exports = {
         });
         return routes;
    }
+}*/
+
+var user = require('./../controller/user');
+var questions = require('./../controller/questions');
+var auth = require('./../common/authorization')
+
+var userAuth = [auth.requiresLogin, auth.user.hasAuthorization]
+
+module.exports = function (app, passport) {
+    app.get('/', user.login);
+    app.get('/home', user.home);
+    app.post('/user/authenticate', passport.authenticate('local', {
+        failureRedirect: '/',
+        failureFlash: true
+    }), user.home)
+
+    app.get('/questions', questions.retrieveQuestions)
+    app.post('/questions', questions.retrieveQuestions)
 }

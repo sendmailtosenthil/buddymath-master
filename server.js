@@ -3,6 +3,9 @@
 var express = require('express');
 var fs      = require('fs');
 var route = require('./route/route');
+var passport = require('passport');
+var flash = require('connect-flash');
+var engines = require('consolidate');;
 
 
 /**
@@ -45,7 +48,7 @@ var SampleApp = function() {
         }
 
         //  Local cache for static content.
-        self.zcache['index.html'] = fs.readFileSync('./index.html');
+        self.zcache['index.html'] = fs.readFileSync('./public/html/index.html');
     };
 
 
@@ -94,7 +97,7 @@ var SampleApp = function() {
     /**
      *  Create the routing table entries + handlers for the application.
      */
-    self.createRoutes = function() {
+/*    self.createRoutes = function() {
         self.routes = { };
         var appRoutes = route.allRoutes();
         console.log(appRoutes);
@@ -102,7 +105,7 @@ var SampleApp = function() {
             console.log('Configuring', appRoutes[i].path, ' to', appRoutes[i].action);
             self.routes[appRoutes[i].path] = appRoutes[i].action;
         }
-    };
+    };*/
 
 
     /**
@@ -110,14 +113,28 @@ var SampleApp = function() {
      *  the handlers.
      */
     self.initializeServer = function() {
-        self.createRoutes();
+        //self.createRoutes();
         self.app = express();
 
-        self.app.use(express.static(__dirname+'/public'));
+        //self.app.use(express.static(path.join(__dirname, 'public/html')));
+        self.app.set('views', __dirname + '/public/html');
+        self.app.engine('html', engines.mustache);
+        self.app.set('view engine', 'html');
+        require('./common/passport')(passport);
+        self.app.use(passport.initialize());
+        self.app.use(passport.session());
+        self.app.use( express.cookieParser() );
+        self.app.use(express.bodyParser());
+        self.app.use(express.session({ secret: 'secret' }));
+        self.app.use(flash());
+
+        require('./route/route')(self.app, passport);
+     //   self.route(self.app);
+ /*       self.app.use(express.static(__dirname+'/public'));
         //  Add handlers for the app (from the routes).
         for (var r in self.routes) {
             self.app.get(r, self.routes[r]);
-        }
+        }*/
     };
 
 

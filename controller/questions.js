@@ -7,13 +7,13 @@ var service = require('./../common/service');
 var cache = require('./../memory/inMemory')
 
 
-module.exports = {
+/*module.exports = {
 
     allRoutes: [{
         path:'/',
         action: retrieveQuestions
     }]
-}
+}*/
 
 function getProblem(id, callback){
 
@@ -46,7 +46,7 @@ function getProblem(id, callback){
     }
 }
 
-function retrieveQuestions(req, res){
+exports.retrieveQuestions = function(req, res){
     getProblem("0", function(data){
         res.send(data);
     });
