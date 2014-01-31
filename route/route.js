@@ -48,4 +48,6 @@ module.exports = function (app, passport) {
 
     app.get('/questions', questions.retrieveQuestions)
     app.post('/questions', questions.retrieveQuestions)
+
+    app.post('/evaluateQuestion', questions.evaluateProblem)
 }

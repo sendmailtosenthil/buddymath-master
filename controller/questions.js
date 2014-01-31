@@ -48,6 +48,28 @@ function getProblem(id, callback){
 
 exports.retrieveQuestions = function(req, res){
     getProblem("0", function(data){
-        res.send(data);
+        res.json(data);
     });
+}
+
+exports.evaluateProblem = function(req, res) {
+    console.log("inside evaluateProblem", req.body);
+
+    var currentPorblemId = req.body.id;
+    var submittedAns = req.body.answer;
+    getProblem(currentPorblemId, function (currentProblem) {
+        if (currentProblem.correct == submittedAns) {
+            console.log("correct answer");
+            var nextId = parseInt(currentPorblemId, 0)+1;
+            console.log("nextId - ",nextId)
+            getProblem(nextId, function(data){
+                console.log("rendering problemNo",data.id);
+                res.json(data);
+            })
+        } else {
+            console.log("rendering same problem");
+            res.json(currentProblem);
+        }
+
+    })
 }
