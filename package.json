@@ -32,7 +32,9 @@
       "passport-local": "latest",
       "connect-flash": "latest",
       "consolidate" :"latest",
-      "mustache" :"latest"
+      "mustache" :"latest",
+      "node-cache" : "latest",
+      "memory-cache" : "latest"
   },
   "devDependencies": {},
   "bundleDependencies": [],
