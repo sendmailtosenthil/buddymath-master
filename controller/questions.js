@@ -28,15 +28,23 @@ function getProblems(callback){
 
 function getProblemById(id, callback)
 {
-    cache.get(id, function(result) {
-        if (result) {
-            console.log("result -", result);
-            callback(result);
-        } else
-            {
-                console.log("unable to get the data for id#",id);
-                return callback(null);
+
+    cache.get(id, function(rest){
+        console.log("talking to server for getting data based on objectId");
+        service.performHttpRequest('/problems/'+id,'GET',{},function(err, data){
+            console.log('got my res', err, data);
+            if (err) {
+                console.log("unable to retreive data from service"+err);
+            } else {
+                rest(err, data);
             }
+        })
+    }, function(error, data){
+        if (error) {
+            console.log("unable to retreive data"+error);
+        } else {
+            callback(data);
+        }
     })
 }
 
@@ -108,24 +116,4 @@ exports.evaluateProblem = function(req, res) {
             console.log("unable to retrieve current problem");
         }
     })
-
-    /*
-    getProblem(currentPorblemId, objectId, function (currentProblem) {
-        console.log("correct Ans -",currentProblem.correct);
-        if (currentProblem.correct == submittedAns) {
-            console.log("correct answer");
-            var nextId = parseInt(currentPorblemId, 0)+1;
-            console.log("nextId - ",nextId)
-            getProblem(nextId, objectId, function(data){
-                console.log("rendering problemNo",data.id);
-                res.json(data);
-            })
-        } else {
-            console.log("rendering same problem");
-            res.json(currentProblem);
-        }
-
-    })*/
-
-
 }

@@ -96,10 +96,19 @@ module.exports = {
             NodeCache.put(questions[i].id, questions[i])
         }
     },
-
-    get: function(id, callback){
-        data = NodeCache.get( id);
-        console.log("Getting from mem_cache, key#",id, data);
-        callback(data);
-    }
+    get: function (key, work, cb) {
+        data = NodeCache.get(key);
+        if (!data) {
+            work(function () {
+                var work_args = Array.prototype.slice.call(arguments, 0);
+                if (work_args[0]) { // assume first arg is an error
+                    return cb(work_args[0]);
+                }
+                NodeCache.put(key, work_args[1]);
+                cb.apply(null, work_args);
+            })
+        }else {
+                return cb(null, data);
+            }
+        }
 }
