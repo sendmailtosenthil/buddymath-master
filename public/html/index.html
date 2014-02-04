@@ -6,9 +6,6 @@
         <meta name="description" content="CBSE Math Subject, 7th Standard 6th Standard">
         <meta name="keywords" content="CBSE, MATHS, 7th, 6th, PROBLEMS">
         <link rel="stylesheet" type="text/css" href="stylesheets/base.css">
-
-
-
     </head>
     <body>
 
@@ -35,7 +32,9 @@
                     $("#problemsArea").show();
                     $.get( '/questions', function(question) {
                         $("#objectId").val(question._id);
+//                        $("input[id=objectId]").val(question._id);
                         $("#qId").val(question.id);
+//                        $("input[id=qId]").val(question.id);
                         $('#question').html(question.question);
                     });
                     $("#grade").hide();

@@ -34,8 +34,8 @@ module.exports = {
         };
 
         var req = http.request(options, function(res) {
-            console.log('STATUS: ', res.statusCode);
-            console.log('HEADERS: ', JSON.stringify(res.headers));
+           // console.log('STATUS: ', res.statusCode);
+          //  console.log('HEADERS: ', JSON.stringify(res.headers));
             res.setEncoding('utf-8');
 
             var responseString = '';
@@ -45,7 +45,7 @@ module.exports = {
             });
 
             res.on('end', function() {
-                console.log(responseString);
+                //console.log(responseString);
                 var responseObject;
                 var error = true;
                 try {
