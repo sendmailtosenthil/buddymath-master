@@ -116,7 +116,7 @@ var SampleApp = function() {
         //self.createRoutes();
         self.app = express();
 
-        //self.app.use(express.static(path.join(__dirname, 'public/html')));
+        self.app.use(express.static(__dirname+'/public'));
         self.app.set('views', __dirname + '/public/html');
         self.app.engine('html', engines.mustache);
         self.app.set('view engine', 'html');
