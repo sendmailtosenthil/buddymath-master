@@ -1,61 +1,33 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Buddy Math | CBSE</title>
-        <meta charset="utf-8">
-        <meta name="description" content="CBSE Math Subject, 7th Standard 6th Standard">
-        <meta name="keywords" content="CBSE, MATHS, 7th, 6th, PROBLEMS">
-        <link rel="stylesheet" type="text/css" href="stylesheets/base.css">
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Buddy Math | CBSE</title>
+    <meta charset="utf-8">
+    <meta name="description" content="CBSE Math Subject, 7th Standard 6th Standard">
+    <meta name="keywords" content="CBSE, MATHS, 7th, 6th, PROBLEMS">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/base.css">
+</head>
+<body>
 
+<table class='center'>
+    <tr>
+        <td>
+            <button id="grade" value="sixthGrade">6th Grade</button>
+        </td>
+    </tr>
+</table>
 
+<div id="problemsArea">
+    Question:
+    <div id="question"></div>
+    <div id="answer">Answer:<input type="text" name="answer"/>
+        <input type="hidden" id="objectId" name="objectId"/>
+        <input type="hidden" id="qId" name="qId"/>
+    </div>
+    <button id="evaluate" value="Submit">Submit Answer</button>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="/scripts/questions.js"></script>
 
-    </head>
-    <body>
-
-        <table class='center'>
-            <tr><td> <button id="grade" value="sixthGrade">6th Grade</button></td></tr>
-        </table>
-
-    <div id="problemsArea">
-        Question:<div id="question"></div>
-        <div id="answer">Answer:<input type="text" name="answer"/>
-            <input type="hidden" id="objectId" name="objectId"/>
-            <input type="hidden" id="qId" name="qId"/>
-        </div>
-        <button id="evaluate" value="Submit">Submit Answer</button>
-     </div>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
-        </script>
-        <script>
-
-            $(document).ready(function(){
-
-                $("#problemsArea").hide();
-                $("#grade").click(function(){
-                    $("#problemsArea").show();
-                    $.get( '/questions', function(question) {
-                        $("#objectId").val(question._id);
-                        $("#qId").val(question.id);
-                        $('#question').html(question.question);
-                    });
-                    $("#grade").hide();
-                });
-
-                $("#evaluate").click(function(){
-                    var qtn = $("#question").val();
-                    var ans = $('input:text[name=answer]').val();
-                    var qId = $("#qId").val();
-                    var objectId = $("#objectId").val();
-                    $.post( '/evaluateQuestion',{id: qId, objectId : objectId, answer:ans}, function(question) {
-                        $("#objectId").val(question._id);
-                        $("#qId").val(question.id);
-                        $('#question').html(question.question);
-                        $('input:text[name=answer]').val("");
-                    });
-                });
-
-            });
-
-        </script>
-    </body>
+</body>
 </html>
